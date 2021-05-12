@@ -1,7 +1,12 @@
 const column_items = document.querySelectorAll('.column-item');
 const columns = document.querySelectorAll('.column');
+const btn_add = document.querySelector("#add-button")
 
 let draggedItem = null;
+
+btn_add.addEventListener('click', function (e) {
+    console.log('click', e);
+});
 
 for (let i = 0; i < column_items.length; i++) {
     const item = column_items[i];
@@ -34,8 +39,12 @@ for (let i = 0; i < column_items.length; i++) {
         });
 
         column.addEventListener('drop', function (e) {
-            console.log('drop');
             this.append(draggedItem);
+            
+            //make button last element in column
+            var btn = document.getElementById('add-button');
+            var parent = btn.parentNode;
+            parent.insertBefore(parent.lastChild, btn);
         });
     }
 }
