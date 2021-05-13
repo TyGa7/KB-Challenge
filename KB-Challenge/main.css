@@ -24,35 +24,6 @@ header {
     height: 60px;
 }
 
-/* .column-headers {
-    display: flex;
-    flex: 1;
-    width: 100%;
-    margin-bottom: 0px;
-} */
-
-/* .column-headers .column-header {
-    display: flex;
-    flex-flow: column;
-    flex: 1;
-
-    width: 100%;
-    min-width: 250px;
-    max-width: 100%;
-    height: 100px;
-    line-height: 60px;
-    min-height: 100px;
-    border-radius: 10px;
-    text-align: center;
-    font-size: 32px;
-    font-weight: 500;
-    color: white;
-
-    background-color: teal;
-    margin: 0 40px;
-    padding: 16px;
-} */
-
 .columns {
     display: flex;
     flex: 1;
@@ -105,22 +76,68 @@ header {
     text-align: center;
     margin: 8px 0px 8px 8px;
     position: relative;
+    height: 100px;
+    min-height: 100px;
+}
+
+.new-input {
+    font-size: 12px;
+    height: 64px;
+    overflow-wrap: normal;
+    margin-bottom: 18px;
+    word-break: keep-all;
 }
 
 .new-text {
     position: absolute;
     bottom: 0;
     left: 0;
+    font-size: 12px;
+    margin-left: 4px;
+    margin-bottom: 2px;
 }
 
 .done-button {
     position: absolute;
     bottom: 0;
     right: 0;
+    font-size: 12px;
+    margin-right: 4px;
+    margin-bottom: 2px;
 }
 
 .item-text {
-    color: black;
+    font-size: 12px;
+    margin-right: 26px;
+    margin-left: 26px;
+    height: 64px;
+    overflow-y: hidden;
+}
+
+.item-right-arrow {
+    background-color: white;
+    border: 2px solid gray;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    right: 0;
+    margin-right: 3px;
+}
+
+.item-left-arrow {
+    background-color: white;
+    border: 2px solid gray;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    left: 0;
+    margin-left: 3px;
 }
 
 .item-date {
@@ -128,6 +145,8 @@ header {
     bottom: 0;
     left: 0;
     font-size: 12px;
+    margin-left: 4px;
+    margin-bottom: 4px;
 }
 
 .item-name {
@@ -135,6 +154,8 @@ header {
     bottom: 0;
     right: 0;
     font-size: 12px;
+    margin-right: 4px;
+    margin-bottom: 4px;
 }
 
 /* Works on Chrome, Edge, and Safari */
