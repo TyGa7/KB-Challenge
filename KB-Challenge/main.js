@@ -1,3 +1,6 @@
+// Author: Tyler Gavin
+// Date: 5/13/2021
+// KanBan Coding Challenge
 const columns = document.querySelectorAll('.column');
 const items = document.getElementsByClassName('column-item');
 const btn_add = document.querySelector("#add-button");
