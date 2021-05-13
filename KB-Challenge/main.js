@@ -1,59 +1,8 @@
-const column_items = document.querySelectorAll('.column-item');
 const columns = document.querySelectorAll('.column');
 const btn_add = document.querySelector("#add-button");
 const first_col = document.getElementById("first-column");
-
-let draggedItem = null;
-
-// //item event listener
-// for (let i = 0; i < column_items.length; i++) {
-//     const item = column_items[i];
-
-//     //listen for drag start
-//     item.addEventListener('dragstart', function (e) {
-//         console.log('dragstart', e);
-//         draggedItem = item;
-//         setTimeout(function () {
-//             item.style.display = 'none';
-//         }, 0);
-//     });
-    
-//     //listen for drag end
-//     item.addEventListener('dragend', function () {
-//         console.log('dragend');
-//         setTimeout(function () {
-//             draggedItem.style.display = 'block';
-//             draggedItem = null;
-//         }, 0);
-//     });
-
-//     //listen for item click@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-//     // item.addEventListener('click', function (e){
-
-//     // });
-
-//     //column event listener
-//     for (let j = 0; j < columns.length; j++) {
-//         const column = columns[j];
-        
-//         //listen for drag over
-//         column.addEventListener('dragover', function (e) {
-//             e.preventDefault();
-//         });
-
-//         //listen for drag enter
-//         column.addEventListener('dragenter', function (e) {
-//             e.preventDefault();
-//         });
-
-//         //listen for drop
-//         column.addEventListener('drop', function (e) {
-//             this.append(draggedItem);
-            
-//             AnchorBtn();
-//         });
-//     }
-// }
+const middle_col = document.getElementById("middle-column");
+const last_col = document.getElementById("last-column");
 
 //add button event listener
 btn_add.addEventListener('click', function (e) {
@@ -138,15 +87,41 @@ btn_add.addEventListener('click', function (e) {
         AnchorBtn();
     });
 
-    //listen for user to click right arrow
-    //const columnList = document.querySelector('columns');
-    //columnList.addEventListener('click', function (toggleDone) {
-
-    // });
-
-    //listen for user to click left arrow
-
     AnchorBtn();
+});
+
+//listen for user to click in first column
+first_col.addEventListener('click', function (e) {
+    var cname = e.target.className;
+    if (cname != "item-right-arrow")
+        return console.log(e)
+    console.log(e.target.parentElement);
+    middle_col.appendChild(e.target.parentElement);
+});
+
+
+//listen for user to click middle column
+middle_col.addEventListener('click', function (e) {
+    var cname = e.target.className;
+    console.log(cname);
+    if ((cname != "item-right-arrow") && (cname != "item-left-arrow"))
+        return console.log("neither")
+    
+    if (cname == "item-right-arrow")
+        last_col.appendChild(e.target.parentElement)
+    if (cname == "item-left-arrow")
+        first_col.appendChild(e.target.parentElement)
+    
+    AnchorBtn();
+});
+
+//list for user to click last column
+last_col.addEventListener('click', function (e) {
+    var cname = e.target.className;
+    if (cname != "item-left-arrow")
+        return console.log(e)
+    console.log(e.target.parentElement);
+    middle_col.appendChild(e.target.parentElement);
 });
 
 //function to anchor button at bottom of column
@@ -155,3 +130,4 @@ function AnchorBtn() {
     var parent = btn.parentNode;
     parent.insertBefore(parent.lastChild, btn);
 }
+
