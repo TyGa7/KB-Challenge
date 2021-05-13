@@ -1,4 +1,5 @@
 const columns = document.querySelectorAll('.column');
+const items = document.getElementsByClassName('column-item');
 const btn_add = document.querySelector("#add-button");
 const first_col = document.getElementById("first-column");
 const middle_col = document.getElementById("middle-column");
@@ -7,7 +8,6 @@ const last_col = document.getElementById("last-column");
 //add button event listener
 btn_add.addEventListener('click', function (e) {
     btn_add.disabled = true;
-    console.log('click', e);
 
     //create new div and place in first column
     const newDiv = document.createElement("div");
@@ -60,6 +60,7 @@ btn_add.addEventListener('click', function (e) {
         newLA.classList.add('item-left-arrow');
         newItem.appendChild(newLA);
         newLA.innerHTML = "<";
+        newLA.style.display = "none";
 
         //add date to new item
         const newItemDate = document.createElement("div");
@@ -92,36 +93,104 @@ btn_add.addEventListener('click', function (e) {
 
 //listen for user to click in first column
 first_col.addEventListener('click', function (e) {
+    //move item to middle column
     var cname = e.target.className;
-    if (cname != "item-right-arrow")
-        return console.log(e)
-    console.log(e.target.parentElement);
-    middle_col.appendChild(e.target.parentElement);
+    if (cname == "item-right-arrow") {
+        middle_col.appendChild(e.target.parentElement);
+
+        //show left arrow button
+        var LA = null;
+        var elem = e.target.parentElement;
+        for (var i = 0; i < elem.childNodes.length; i++) {
+            if (elem.childNodes[i].className == "item-left-arrow") {
+                LA = elem.childNodes[i];
+                break;
+            }
+        }
+        LA.style.display = "block";
+    }
+    else {
+        if (cname == "column-item") {
+            for (i = 0; i < items.length; i++) {
+                items[i].style.border = "none";
+            }
+            e.target.style.border = "2px solid red";
+        }
+    }
 });
 
 
 //listen for user to click middle column
 middle_col.addEventListener('click', function (e) {
+    //move item to appropriate column
     var cname = e.target.className;
-    console.log(cname);
-    if ((cname != "item-right-arrow") && (cname != "item-left-arrow"))
-        return console.log("neither")
     
-    if (cname == "item-right-arrow")
-        last_col.appendChild(e.target.parentElement)
-    if (cname == "item-left-arrow")
-        first_col.appendChild(e.target.parentElement)
-    
-    AnchorBtn();
+    if (cname == "item-right-arrow") {
+        last_col.appendChild(e.target.parentElement);
+        //show left arrow button
+        var RA = null;
+        var LA = null;
+        var elem = e.target.parentElement;
+        for (var i = 0; i < elem.childNodes.length; i++) {
+            if (elem.childNodes[i].className == "item-left-arrow")
+                LA = elem.childNodes[i];
+            if (elem.childNodes[i].className == "item-right-arrow")
+                RA = elem.childNodes[i];
+        }
+        LA.style.display = "block";
+        RA.style.display = "none";
+    }
+    if (cname == "item-left-arrow") {
+        first_col.appendChild(e.target.parentElement);
+        AnchorBtn();
+        //show right arrow button
+        var RA = null;
+        var LA = null;
+        var elem = e.target.parentElement;
+        for (var i = 0; i < elem.childNodes.length; i++) {
+            if (elem.childNodes[i].className == "item-left-arrow")
+                LA = elem.childNodes[i];
+            if (elem.childNodes[i].className == "item-right-arrow")
+                RA = elem.childNodes[i];
+        }
+        RA.style.display = "block";
+        LA.style.display = "none";
+    }
+    else {
+        if (cname == "column-item") {
+            for (i = 0; i < items.length; i++) {
+                items[i].style.border = "none";
+            }
+            e.target.style.border = "2px solid red";
+        }
+    }
 });
 
-//list for user to click last column
+//listen for user to click last column
 last_col.addEventListener('click', function (e) {
+    //move item to middle column
     var cname = e.target.className;
-    if (cname != "item-left-arrow")
-        return console.log(e)
-    console.log(e.target.parentElement);
-    middle_col.appendChild(e.target.parentElement);
+    if (cname == "item-left-arrow") {
+        middle_col.appendChild(e.target.parentElement);
+        //show right arrow button
+        var RA = null;
+        var elem = e.target.parentElement;
+        for (var i = 0; i < elem.childNodes.length; i++) {
+            if (elem.childNodes[i].className == "item-right-arrow") {
+                RA = elem.childNodes[i];
+                break;
+            }
+    }
+    RA.style.display = "block";
+    }
+    else {
+        if (cname == "column-item") {
+            for (i = 0; i < items.length; i++) {
+                items[i].style.border = "none";
+            }
+            e.target.style.border = "2px solid red";
+        }
+    }
 });
 
 //function to anchor button at bottom of column
