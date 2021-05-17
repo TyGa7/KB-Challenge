@@ -12,7 +12,9 @@
       - fs
       - nconf
       - stringify
-      
+   
+   **The packages need to be saved in "/root directory/node_modules"**
+   
 3. Open up a command prompt and navigate to the directory where the files are saved.
 4. Double-click the index.html file to start the front-end software. (Only tested with Microsoft
    Edge and Google Chrome)
