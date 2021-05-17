@@ -1,5 +1,5 @@
 // Author: Tyler Gavin
-// Date: 5/13/2021
+// Date: 5/17/2021
 // KanBan Coding Challenge
 const columns = document.querySelectorAll('.column');
 const items = document.getElementsByClassName('column-item');
@@ -45,6 +45,7 @@ btn_add.addEventListener('click', function (e) {
         //add new item with entered text value
         const newItem = document.createElement("div");
         newItem.classList.add('column-item');
+        newItem.id = Date.now();
         first_col.appendChild(newItem);
 
         const newItemText = document.createElement("div");
@@ -89,6 +90,31 @@ btn_add.addEventListener('click', function (e) {
         newItem.setAttribute('draggable', true);
         btn_add.disabled = false;
         AnchorBtn();
+
+        //send PUT request
+        putData = {
+            id : newItem.id,
+            text : inputText,
+            date : fullDate,
+            column : 1
+        };
+
+        var putString = JSON.stringify(putData);
+
+        fetch('http://localhost:23456/api/kanban', {
+            method: 'PUT',
+            body: putString,
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            console.log('Success:', response);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
     });
 
     AnchorBtn();
@@ -104,6 +130,7 @@ first_col.addEventListener('click', function (e) {
         //show left arrow button
         var LA = null;
         var elem = e.target.parentElement;
+        var cid = elem.id;
         for (var i = 0; i < elem.childNodes.length; i++) {
             if (elem.childNodes[i].className == "item-left-arrow") {
                 LA = elem.childNodes[i];
@@ -111,7 +138,31 @@ first_col.addEventListener('click', function (e) {
             }
         }
         LA.style.display = "block";
+
+        //send POST request
+        postData = {
+            id : cid,
+            column : 2
+        };
+
+        var postString = JSON.stringify(postData);
+
+        fetch('http://localhost:23456/api/kanban', {
+            method: 'POST',
+            body: postString,
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            console.log('Success:', response);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
     }
+    //outline active item
     else {
         if (cname == "column-item") {
             for (i = 0; i < items.length; i++) {
@@ -134,6 +185,7 @@ middle_col.addEventListener('click', function (e) {
         var RA = null;
         var LA = null;
         var elem = e.target.parentElement;
+        var cid = elem.id;
         for (var i = 0; i < elem.childNodes.length; i++) {
             if (elem.childNodes[i].className == "item-left-arrow")
                 LA = elem.childNodes[i];
@@ -142,6 +194,29 @@ middle_col.addEventListener('click', function (e) {
         }
         LA.style.display = "block";
         RA.style.display = "none";
+
+        //send POST request
+        postData = {
+            id : cid,
+            column : 3
+        };
+
+        var postString = JSON.stringify(postData);
+
+        fetch('http://localhost:23456/api/kanban', {
+            method: 'POST',
+            body: postString,
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            console.log('Success:', response);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
     }
     if (cname == "item-left-arrow") {
         first_col.appendChild(e.target.parentElement);
@@ -150,6 +225,7 @@ middle_col.addEventListener('click', function (e) {
         var RA = null;
         var LA = null;
         var elem = e.target.parentElement;
+        var cid = elem.id;
         for (var i = 0; i < elem.childNodes.length; i++) {
             if (elem.childNodes[i].className == "item-left-arrow")
                 LA = elem.childNodes[i];
@@ -158,7 +234,31 @@ middle_col.addEventListener('click', function (e) {
         }
         RA.style.display = "block";
         LA.style.display = "none";
+
+        //send POST request
+        postData = {
+            id : cid,
+            column : 1
+        };
+
+        var postString = JSON.stringify(postData);
+
+        fetch('http://localhost:23456/api/kanban', {
+            method: 'POST',
+            body: postString,
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            console.log('Success:', response);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
     }
+    //outline active item
     else {
         if (cname == "column-item") {
             for (i = 0; i < items.length; i++) {
@@ -178,14 +278,39 @@ last_col.addEventListener('click', function (e) {
         //show right arrow button
         var RA = null;
         var elem = e.target.parentElement;
+        var cid = elem.id;
         for (var i = 0; i < elem.childNodes.length; i++) {
             if (elem.childNodes[i].className == "item-right-arrow") {
                 RA = elem.childNodes[i];
                 break;
             }
+        }
+        RA.style.display = "block";
+
+        //send POST request
+        postData = {
+            id : cid,
+            column : 2
+        };
+
+        var postString = JSON.stringify(postData);
+
+        fetch('http://localhost:23456/api/kanban', {
+            method: 'POST',
+            body: postString,
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            console.log('Success:', response);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
     }
-    RA.style.display = "block";
-    }
+    //outline active item
     else {
         if (cname == "column-item") {
             for (i = 0; i < items.length; i++) {
@@ -202,4 +327,3 @@ function AnchorBtn() {
     var parent = btn.parentNode;
     parent.insertBefore(parent.lastChild, btn);
 }
-

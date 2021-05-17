@@ -1,13 +1,19 @@
+// Author: Tyler Gavin
+// Date: 5/17/2021
+// KanBan Coding Challenge
 import express from 'express';
 import bodyParser from 'body-parser';
-
-import apiRoutes from './routes/api.js';
+import cors from 'cors';
 
 const app = express();
 const port = 23456;
 
-app.use(bodyParser.json());
+app.options('*', cors());
+app.use(cors());
 
+import apiRoutes from './routes/api.js';
+
+app.use(bodyParser.json());
 app.use('/api', apiRoutes);
 
 app.get("/api/kanban", (req, res) => {
